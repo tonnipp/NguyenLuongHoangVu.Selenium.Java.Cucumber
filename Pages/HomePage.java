@@ -18,7 +18,7 @@ public class HomePage extends SauceDemoBasePage{
     public List<WebElement> productList(){return driver.findElements(By.xpath(lstItem));}
 
     //ACtions
-    public ProductDetailPage selectFirstProduct(){
+    public ProductDetailPage clickFirstProduct(){
         keywords.click(productList().get(0).findElement(By.xpath(lblInventoryName)));
         return new ProductDetailPage(driver);
     }
