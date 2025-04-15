@@ -50,7 +50,7 @@ public class ReportListener implements ITestListener {
         driver = BaseSetup.getDriver();
         Log.info("Start testing " + iTestContext.getName());
         iTestContext.setAttribute("WebDriver", driver);
-        //Gọi hàm startRecord video trong CaptureHelpers class
+        //Call the startRecord video function in the CaptureHelpers class
         try {
             CaptureHelpers.startRecord(iTestContext.getName());
         } catch (Exception e) {
@@ -61,9 +61,9 @@ public class ReportListener implements ITestListener {
     @Override
     public void onFinish(ITestContext iTestContext) {
         Log.info("End testing " + iTestContext.getName());
-        //Kết thúc và thực thi Extents Report
+        //Finish and execute Extents Report
         createExtentReports().flush();
-        //Gọi hàm stopRecord video trong CaptureHelpers class
+        //Call the stopRecord video function in the CaptureHelpers class
         try {
             CaptureHelpers.stopRecord();
         } catch (Exception e) {
