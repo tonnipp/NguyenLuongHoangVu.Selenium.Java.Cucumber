@@ -24,25 +24,25 @@ import static org.monte.media.VideoFormatKeys.*;
 
 public class CaptureHelpers extends ScreenRecorder {
 
-    //Lấy đường dẫn đến project hiện tại
+    //Get the path to the current project
     static String projectPath = System.getProperty("user.dir") + "/";
-    //Tạo format ngày giờ để xíu gắn dô cái name của screenshot hoặc record video
+    //Create a date and time format to attach to the name of the screenshot or video record.
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy HH-mm-ss");
 
     public static void captureScreenshot(WebDriver driver, String screenName) {
         PropertiesFile.setPropertiesFile();
         try {
             Reporter.log("Driver for Screenshot: " + driver);
-            // Tạo tham chiếu đối tượng của TakesScreenshot với dirver hiện tại
+            // Create an object reference of TakesScreenshot with the current dirver
             TakesScreenshot ts = (TakesScreenshot) driver;
-            // Gọi hàm getScreenshotAs để chuyển hóa hình ảnh về dạng FILE
+            // Call the getScreenshotAs function to convert the image to FILE format.
             File source = ts.getScreenshotAs(OutputType.FILE);
-            //Kiểm tra folder nếu không tồn tại thì tạo folder
+            //Check folder if it does not exist then create folder
             File theDir = new File(projectPath + PropertiesFile.getPropValue("exportCapturePath"));
             if (!theDir.exists()) {
                 theDir.mkdirs();
             }
-            // Chổ này đặt tên thì truyền biến "screenName" gán cho tên File chụp màn hình
+            // When naming, pass the variable "screenName" assigned to the name of the screenshot file.
             FileHandler.copy(source, new File(projectPath + PropertiesFile.getPropValue("exportCapturePath") + "/" + screenName + "_" + dateFormat.format(new Date()) + ".png"));
             System.out.println("Screenshot taken: " + screenName);
             Reporter.log("Screenshot taken current URL: " + driver.getCurrentUrl(), true);
@@ -55,14 +55,14 @@ public class CaptureHelpers extends ScreenRecorder {
     public static ScreenRecorder screenRecorder;
     public String name;
 
-    //Hàm xây dựng
+    //Build functions
     public CaptureHelpers(GraphicsConfiguration cfg, Rectangle captureArea, Format fileFormat, Format screenFormat, Format mouseFormat, Format audioFormat, File movieFolder, String name) throws IOException, AWTException {
         super(cfg, captureArea, fileFormat, screenFormat, mouseFormat, audioFormat, movieFolder);
         this.name = name;
 
     }
 
-    //Hàm này bắt buộc để ghi đè custom lại hàm trong thư viên viết sẵn
+    //This function is required to override custom functions in pre-written libraries.
     @Override
     protected File createMovieFile(Format fileFormat) throws IOException {
 
@@ -75,10 +75,10 @@ public class CaptureHelpers extends ScreenRecorder {
         return new File(movieFolder, name + "-" + dateFormat.format(new Date()) + "." + Registry.getInstance().getExtension(fileFormat));
     }
 
-    // Hàm Start record video
+    // Start record video
     public static void startRecord(String methodName) {
         PropertiesFile.setPropertiesFile();
-        //Tạo thư mục để lưu file video vào
+        //Create a folder to save video files to
         File file = new File(projectPath + PropertiesFile.getPropValue("exportVideoPath") + "/" + methodName + "/");
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = screenSize.width;
