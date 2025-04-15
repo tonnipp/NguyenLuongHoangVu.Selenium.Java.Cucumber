@@ -9,15 +9,15 @@ public class PropertiesFile {
     private static FileInputStream fileIn;
     private static FileOutputStream fileOut;
 
-    //Lấy đường dẫn đến project hiện tại
+    //Get the path to the current project
     static String projectPath = System.getProperty("user.dir") + "/";
-    //Tạo đường dẫn đến file configs.properties mặc định
+    //Create path to default configs.properties file
     private static String propertiesFilePathRoot = "src/test/resources/configs.properties";
 
     public static void setPropertiesFile() {
         properties = new Properties();
         try {
-            //Khởi tạo giá trị cho đối tượng của class FileInputStream
+            //Initialize values ​​for objects of class FileInputStream
             fileIn = new FileInputStream(projectPath + propertiesFilePathRoot);
             //Load properties file
             properties.load(fileIn);
@@ -28,7 +28,7 @@ public class PropertiesFile {
         }
     }
 
-    //Xây dựng hàm Get Value từ Key của file properties đã setup bên trên
+    //Build the Get Value function from the Key of the properties file set up above
     public static String getPropValue(String KeyProp) {
         String value = null;
         try {
@@ -44,14 +44,14 @@ public class PropertiesFile {
         return value;
     }
 
-    //Xây dựng hàm Set Value với Key tương ứng vào trong file properties đã setup bên trên
+    //Build the Set Value function with the corresponding Key into the properties file set up above.
     public static void setPropValue(String KeyProp, String Value) {
         try {
-            //Khởi tạo giá trị cho đối tượng của class FileOutputStream
+            //Initialize values ​​for objects of class FileOutputStream
             fileOut = new FileOutputStream(projectPath + propertiesFilePathRoot);
-            //Load properties file hiện tại và thực hiện mapping value với key tương ứng
+            //Load the current properties file and map the value to the corresponding key
             properties.setProperty(KeyProp, Value);
-            //Lưu key và value vào properties file
+            //Save key and value to properties file
             properties.store(fileOut, "Set new value in properties file");
             System.out.println("Set new value in file properties success.");
         } catch (Exception exp) {
